@@ -6,6 +6,8 @@ __pycache__/
 *.so
 
 # Distribution / packaging
+.vs/
+env_odoo/
 .Python
 env/
 bin/
