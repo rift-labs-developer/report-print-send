@@ -7,12 +7,12 @@
 
 {
     "name": "Report to printer",
-    "version": "13.0.1.1.0",
+    "version": "13.1.1.1.0",
     "category": "Generic Modules/Base",
     "author": "Agile Business Group & Domsense, Pegueroles SCP, NaN,"
     " LasLabs, Camptocamp, Odoo Community Association (OCA),"
     " Open for Small Business Ltd",
-    "website": "https://github.com/OCA/report-print-send",
+    "website": "https://github.com/OCA/report-print-sendfffsvxvx",
     "license": "AGPL-3",
     "depends": ["web"],
     "data": [
