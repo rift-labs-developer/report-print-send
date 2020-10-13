@@ -1,2 +1,6 @@
 pycups==1.9.74
 zpl2==1.2
+requests
+future
+PrintNodeApi
+

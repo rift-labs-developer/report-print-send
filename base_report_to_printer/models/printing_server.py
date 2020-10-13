@@ -19,11 +19,11 @@ class PrintingServer(models.Model):
     _name = "printing.server"
     _description = "Printing server"
 
-    name = fields.Char(default="Localhost", required=True, help="Name of the server.")
+    name = fields.Char(default="KypP247LYZxJdly-w72wqKvksrzSgAr7rFQ-GuiQ60A", required=True, help="Printnode API key.")
     address = fields.Char(
-        default="localhost", required=True, help="IP address or hostname of the server"
+        default="localhost", required=False, help="IP address or hostname of the server"
     )
-    port = fields.Integer(default=631, required=True, help="Port of the server.")
+    port = fields.Integer(default=631, required=False, help="Port of the server.")
     active = fields.Boolean(default=True, help="If checked, this server is useable.")
     printer_ids = fields.One2many(
         comodel_name="printing.printer",
