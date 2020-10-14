@@ -72,13 +72,13 @@ class PrintingPrinter(models.Model):
             "name": cups_printer.name,
             "model": cups_printer.description,
             "location": cups_printer.computer,
-            "uri": cups_printer.get("device-uri", False),
+            "uri": '',
             "status": cups_printer.state,
             "status_message": cups_printer.state,
         }
         printer_uri = False
         printer_system_name = cups_printer.name
-        ppd_info = cups_connection.getPPD3(printer_system_name)
+        #ppd_info = cups_connection.getPPD3(printer_system_name)
         ppd_path = False
         if not ppd_path:
             return vals
