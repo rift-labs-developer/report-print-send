@@ -19,7 +19,7 @@ class PrintingServer(models.Model):
     _name = "printing.server"
     _description = "Printing server"
 
-    name = fields.Char(default="KypP247LYZxJdly-w72wqKvksrzSgAr7rFQ-GuiQ60A", required=True, help="Printnode API key.")
+    name = fields.Char(default="KypP247LYZxJdly-w72wqKvksrzSgAr7rFQ-GuiQ60A", required=True, help="Printnode API key y.")
     address = fields.Char(
         default="localhost", required=False, help="IP address or hostname of the server"
     )
