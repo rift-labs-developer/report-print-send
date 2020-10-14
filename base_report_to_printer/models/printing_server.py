@@ -3,7 +3,7 @@
 
 import logging
 from datetime import datetime
-
+from printnodeapi import Gateway
 from odoo import _, exceptions, fields, models
 
 _logger = logging.getLogger(__name__)
@@ -36,7 +36,8 @@ class PrintingServer(models.Model):
         self.ensure_one()
         connection = False
         try:
-            connection = cups.Connection(host=self.address, port=self.port)
+            connection = Gateway(apikey='KypP247LYZxJdly-w72wqKvksrzSgAr7rFQ-GuiQ60A')
+            #connection = cups.Connection(host=self.address, port=self.port)
         except Exception:
             message = _(
                 "Failed to connect to the CUPS server on %s:%s. "
@@ -69,18 +70,20 @@ class PrintingServer(models.Model):
                 continue
 
             # Update Printers
-            printers = connection.getPrinters()
+            printers = connection.printers()
             existing_printers = {
                 printer.system_name: printer for printer in server.printer_ids
             }
             updated_printers = []
-            for name, printer_info in printers.items():
+
+            for printerObject in printers:
+                name = printerObject.name
                 printer = self.env["printing.printer"]
                 if name in existing_printers:
                     printer = existing_printers[name]
 
                 printer_values = printer._prepare_update_from_cups(
-                    connection, printer_info
+                    connection, printerObject
                 )
                 printer_values.update(system_name=name, server_id=server.id)
                 updated_printers.append(name)

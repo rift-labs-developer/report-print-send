@@ -69,17 +69,17 @@ class PrintingPrinter(models.Model):
     def _prepare_update_from_cups(self, cups_connection, cups_printer):
         mapping = {3: "available", 4: "printing", 5: "error"}
         vals = {
-            "name": cups_printer["printer-info"],
-            "model": cups_printer.get("printer-make-and-model", False),
-            "location": cups_printer.get("printer-location", False),
+            "name": cups_printer.name,
+            "model": cups_printer.description,
+            "location": cups_printer.computer,
             "uri": cups_printer.get("device-uri", False),
-            "status": mapping.get(cups_printer.get("printer-state"), "unknown"),
-            "status_message": cups_printer.get("printer-state-message", ""),
+            "status": cups_printer.state,
+            "status_message": cups_printer.state,
         }
-        printer_uri = cups_printer["printer-uri-supported"]
-        printer_system_name = printer_uri[printer_uri.rfind("/") + 1 :]
+        printer_uri = False
+        printer_system_name = cups_printer.name
         ppd_info = cups_connection.getPPD3(printer_system_name)
-        ppd_path = ppd_info[2]
+        ppd_path = False
         if not ppd_path:
             return vals
 
