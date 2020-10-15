@@ -70,7 +70,7 @@ class PrintingPrinter(models.Model):
         mapping = {3: "available", 4: "printing", 5: "error"}
         vals = {
             "name": cups_printer.name,
-            "model": cups_printer.description,
+            "model": cups_printer.id,
             "location": cups_printer.computer,
             "uri": '',
             "status": "available",
@@ -171,7 +171,15 @@ class PrintingPrinter(models.Model):
             "Sending job to CUPS printer %s on %s"
             % (self.system_name, self.server_id.address)
         )
-        connection.printFile(self.system_name, file_name, file_name, options=options)
+        #report argument is the qweb_pdf ?
+        with open(file_name, "rb") as pdf_file:
+            encoded_bytes = base64.b64encode(pdf_file.read())
+        encoded_string = encoded_bytes.decode("ascii")
+
+        #self.model is printer.id for now
+        connection.PrintJob(printer=self.model,title=file_name, base64=encoded_string)
+        # the print options are a bit hard to decode..
+        #connection.printFile(self.system_name, file_name, file_name, options=options)
         _logger.info(
             "Printing job: '{}' on {}".format(file_name, self.server_id.address)
         )
@@ -209,6 +217,7 @@ class PrintingPrinter(models.Model):
 
     def enable(self):
         for printer in self:
+            #This gets a gateway
             connection = printer.server_id._open_connection()
             connection.enablePrinter(printer.system_name)
 
