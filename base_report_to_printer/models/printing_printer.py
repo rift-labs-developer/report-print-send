@@ -54,7 +54,7 @@ class PrintingPrinter(models.Model):
             ("error", "Error"),
             ("server-error", "Server Error"),
         ],
-        required=True,
+        required=False,
         readonly=True,
         default="unknown",
     )
@@ -73,7 +73,7 @@ class PrintingPrinter(models.Model):
             "model": cups_printer.description,
             "location": cups_printer.computer,
             "uri": '',
-            "status": cups_printer.state,
+            "status": "available",
             "status_message": cups_printer.state,
         }
         printer_uri = False
