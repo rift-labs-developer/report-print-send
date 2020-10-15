@@ -178,7 +178,8 @@ class PrintingPrinter(models.Model):
         encoded_string = encoded_bytes.decode("ascii")
 
         #self.model is printer.id for now
-        connection.PrintJob(printer=self.model,title=file_name, base64=encoded_string)
+        printer_id = int(self.model)
+        connection.PrintJob(printer=printer_id,title=file_name, base64=encoded_string)
         # the print options are a bit hard to decode..
         #connection.printFile(self.system_name, file_name, file_name, options=options)
         _logger.info(
