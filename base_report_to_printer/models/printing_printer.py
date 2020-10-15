@@ -10,7 +10,8 @@ import errno
 import logging
 import os
 from tempfile import mkstemp
-
+import base64
+from printnodeapi import Gateway
 from odoo import fields, models
 
 _logger = logging.getLogger(__name__)
